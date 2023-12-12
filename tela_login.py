@@ -31,7 +31,14 @@ def fechar_aplicacao():
 
 
 def teste_de_cadastro():
-    persistencia.cadastrar_usuario("Robert", 321)
+    persistencia.cadastrar_usuario(nomeUsuario.value, senha.value)
+
+
+def teste_listar_usuarios():
+    for usuario in persistencia.listar_usuarios_cadastrados():
+        print(f"Código: {usuario.Codigo}")
+        print(f"Nome: {usuario.Nome}")
+        print(f"Senha: {usuario.Senha}")
 
 
 app = App(title="Tela de Login", layout="grid", width=220, height=150)
@@ -45,7 +52,7 @@ nomeUsuario.when_key_pressed = verificar_tecla
 senha.when_key_pressed = verificar_tecla
 
 botaoEnviar = PushButton(app, text="Enviar", command=validar_usuario, grid=[0, 3])
-botaoCadastrar = PushButton(app, text="Cadastrar usuário", command=teste_de_cadastro, grid=[1, 3])
+botaoCadastrar = PushButton(app, text="Cadastrar usuário", command=teste_listar_usuarios, grid=[1, 3])
 botaoCancelar = PushButton(app, text="Cancelar", command=fechar_aplicacao, grid=[2, 3], align="left")
 mensagemDeAcesso = Text(app, text="", grid=[1, 4], align="left")
 

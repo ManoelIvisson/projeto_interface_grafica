@@ -3,7 +3,7 @@ import pickle
 
 
 def serializar_lista_de_usuarios(lista_de_usuarios):
-    with open("usuarios.pickle", "wb+") as arquivo:
+    with open("usuarios.pickle", "rb+") as arquivo:
         pickle.dump(lista_de_usuarios, arquivo)
 
 

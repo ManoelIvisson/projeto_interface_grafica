@@ -1,23 +1,29 @@
-import pickle, Usuario
+from Usuario import Usuario
+import pickle
 
 
 def serializar_lista_de_usuarios(lista_de_usuarios):
-    with open("usuarios.pickle", "wb+", encoding="utf-8") as arquivo:
+    with open("usuarios.pickle", "wb+") as arquivo:
         pickle.dump(lista_de_usuarios, arquivo)
 
 
 def listar_usuarios_cadastrados():
     try:
+        lista_de_usuarios = []
         with open("usuarios.pickle", "rb") as arquivo:
-            lista_de_usuarios = pickle.load(arquivo)
-            return lista_de_usuarios
+            if len(arquivo.readlines()) > 0:
+                arquivo.seek(0)
+                lista_de_usuarios = pickle.load(arquivo)
+        return lista_de_usuarios
     except FileNotFoundError:
         print("Arquivo não foi encontrado")
 
 
-def gerar_codigo_unico():
-    lista_de_usuarios = listar_usuarios_cadastrados()
-    ultimo_codigo_cadastrado = lista_de_usuarios[-1].Codigo
+def gerar_codigo_unico(lista_de_usuarios):
+    try:
+        ultimo_codigo_cadastrado = lista_de_usuarios[-1].Codigo
+    except IndexError:
+        ultimo_codigo_cadastrado = 0
     novo_codigo = ultimo_codigo_cadastrado + 1
     return novo_codigo
 
@@ -31,7 +37,7 @@ def cadastrar_usuario(nome, senha):
 
     if cadastro_permitido:
         novo_usuario = Usuario(nome, senha)
-        novo_usuario.Codigo = gerar_codigo_unico()
+        novo_usuario.Codigo = gerar_codigo_unico(lista_de_usuarios)
         lista_de_usuarios.append(novo_usuario)
         serializar_lista_de_usuarios(lista_de_usuarios)
     else:

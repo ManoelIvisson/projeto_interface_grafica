@@ -41,12 +41,8 @@ def buscar_usuario():
     usuario_pesquisado = persistencia.buscar_usuario(codigoBuscar.value)
 
     if usuario_pesquisado is not None:
-        print("Código: ")
-        print(usuario_pesquisado.Codigo)
-        print("Login: ")
-        print(usuario_pesquisado.Nome)
-        print("Senha: ")
-        print(usuario_pesquisado.Senha)
+        info("Informações do usuário", f"Código: {usuario_pesquisado.Codigo} | Login: {usuario_pesquisado.Nome}"
+            f" | Senha: {usuario_pesquisado.Senha}")
     else:
         warn("Aviso", "Este usuário não existe")
 

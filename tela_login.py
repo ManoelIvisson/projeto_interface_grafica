@@ -6,13 +6,10 @@ def validar_usuario():
     usuario_valido = persistencia.validar_usuario(nomeUsuario.value, senha.value)
 
     if usuario_valido:
-        mensagemDeAcesso.value = "Acesso Permitido!"
-        mensagemDeAcesso.text_color = "green"
         app.hide()
         janela.show()
     else:
-        mensagemDeAcesso.value = "Acesso Negado!"
-        mensagemDeAcesso.text_color = "red"
+        warn("Atenção", "Acesso Negado, verifique o nome de usuario e a senha")
 
 
 def verificar_tecla(tecla_pressionada):
@@ -28,9 +25,9 @@ def cadastro_de_usuario():
     cadastro_permitido = persistencia.cadastrar_usuario(nomeUsuario.value, senha.value)
 
     if cadastro_permitido:
-        print("Usuário cadastrado com sucesso")
+        info("Sucesso", "Usuário cadastrado com sucesso")
     else:
-        print("Nome de usuário já existe ou possui espaços")
+        warn("Atenção", "Nome de usuário já existe ou possui espaços")
 
 
 def listar_usuarios():
@@ -58,10 +55,9 @@ def excluir_usuario():
     remocao_permitida = persistencia.excluir_usuario(codigoExcluir.value)
 
     if remocao_permitida:
-        print("Usuário deletado com sucesso")
+        info("Sucesso", "Usuário deletado com sucesso")
     else:
-        print("Usuário não encontrado")
-
+        warn("Atenção", "Usuário não encontrado")
 
 
 app = App(title="Usuário lunático", layout="grid", width=1100, height=619)

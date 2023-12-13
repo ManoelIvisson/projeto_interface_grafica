@@ -1,4 +1,4 @@
-from guizero import App, Text, TextBox, PushButton, Window
+from guizero import App, Text, TextBox, PushButton, Window, Picture, Box, info, warn
 import persistencia
 
 
@@ -36,34 +36,74 @@ def teste_listar_usuarios():
 
 
 def teste_buscar_usuario():
-    usuario_pesquisado = persistencia.buscar_usuario(nomeUsuario.value)
+    usuario_pesquisado = persistencia.buscar_usuario(codigoBuscar.value)
 
     if usuario_pesquisado is not None:
+        print("Código: ")
         print(usuario_pesquisado.Codigo)
+        print("Login: ")
         print(usuario_pesquisado.Nome)
+        print("Senha: ")
         print(usuario_pesquisado.Senha)
+    else:
+        warn("Aviso", "Este usuário não existe")
 
 
 def teste_excluir_usuario():
-    persistencia.excluir_usuario(nomeUsuario.value)
+    persistencia.excluir_usuario(codigoExcluir.value)
 
 
-app = App(title="Tela de Login", layout="grid", width=500, height=150)
-Text(app, text="Usuário: ", grid=[0, 0])
-nomeUsuario = TextBox(app, grid=[1, 0], width=20)
-Text(app, text="Senha: ", grid=[0, 1])
-senha = TextBox(app, grid=[1, 1], width=20)
-Text(app, text="", grid=[0, 2])
+app = App(title="Usuário lunático", layout="grid", width=1100, height=619)
+picture = Picture(app, image="source/fundo login.png", grid=[0,0,4,4])
+
+Login = Box (app, grid=[0,0], layout="")
+
+Text(Login, text="Usuário 👦: ", font="Century Gothic", size=24)
+nomeUsuario = TextBox(Login, width=30)
+
+loginBotaoBox = Box(Login, layout="grid")
+
+Text(Login, text="Senha 🔑: ", font="Century Gothic", size=24)
+# senha = TextBox(app, grid=[1, 1], width=35)
+senha = TextBox(Login, width=30)
+Text(Login, text="")
 
 nomeUsuario.when_key_pressed = verificar_tecla
 senha.when_key_pressed = verificar_tecla
 teste_listar_usuarios()
-botaoEnviar = PushButton(app, text="Enviar", command=validar_usuario, grid=[0, 3])
-botaoCadastrar = PushButton(app, text="Cadastrar usuário", command=teste_de_cadastro, grid=[1, 3])
-botaoBuscarUsuario = PushButton(app, text="Buscar usuário", command=teste_buscar_usuario, grid=[2, 3])
-botaoExcluirUsuario = PushButton(app, text="Excluir usuário", command=teste_excluir_usuario, grid=[3, 3])
 
-botaoCancelar = PushButton(app, text="Cancelar", command=fechar_aplicacao, grid=[4, 3], align="left")
+loginBotaoBox = Box(Login, layout="grid")
+
+botaoEnviar = PushButton(loginBotaoBox, text="Enviar", command=validar_usuario, grid=[0, 0], width=10)
+botaoEnviar.bg = "blue"
+botaoEnviar.text_color = "white"
+botaoEnviar.text_size = 10
+Invisivel = Box(loginBotaoBox, grid=[1,0], height=15, width=15)
+botaoCadastrar = PushButton(loginBotaoBox, text="Cadastrar usuário", command=teste_de_cadastro, grid=[2,0], width=15)
+botaoCadastrar.bg = "white"
+botaoCadastrar.text_size = 10
+InvisivelCancelar = Box(loginBotaoBox, grid=[2,0], height=60)
+botaoCancelar = PushButton(loginBotaoBox, text="Fechar", command=fechar_aplicacao, grid=[0, 3], align="left")
+botaoCancelar.bg = "red"
+
+ferramenta = Box(app, layout="grid", grid=[0,3])
+
+ferramentaBusca = Box(ferramenta, grid=[0,0])
+Text(ferramentaBusca, text="Busca por ID 👾: ", font="Century Gothic", size=20)
+Text(ferramentaBusca, text="", font="Century Gothic", size=1)
+codigoBuscar = TextBox(ferramentaBusca, width=30)
+Text(ferramentaBusca, text="", font="Century Gothic", size=3)
+botaoBuscarUsuario = PushButton(ferramentaBusca, text="🔍", command=teste_buscar_usuario)
+botaoBuscarUsuario.bg = "green"
+
+ferramentaExcluir = Box(ferramenta, grid=[1,0])
+Text(ferramentaExcluir, text="Excluir por ID 🗑: ", font="Century Gothic", size=20)
+Text(ferramentaExcluir, text="", font="Century Gothic", size=1)
+codigoExcluir = TextBox(ferramentaExcluir, width=30)
+Text(ferramentaExcluir, text="", font="Century Gothic", size=3)
+botaoExcluirUsuario = PushButton(ferramentaExcluir, text="❌", command=teste_excluir_usuario)
+botaoExcluirUsuario.text_color = "red"
+
 mensagemDeAcesso = Text(app, text="", grid=[1, 4], align="left")
 
 janela = Window(app, title="Tela Principal", visible=False)

@@ -40,14 +40,15 @@ def cadastrar_usuario(nome, senha):
         novo_usuario.Codigo = gerar_codigo_unico(lista_de_usuarios)
         lista_de_usuarios.append(novo_usuario)
         serializar_lista_de_usuarios(lista_de_usuarios)
+        return True
     else:
-        print("Nome de usuário já existe ou possui espaços")
+        return False
 
 
 def buscar_usuario(pesquisa):
     lista_de_usuarios = listar_usuarios_cadastrados()
     for usuario in lista_de_usuarios:
-        if pesquisa == str(usuario.Codigo):
+        if pesquisa == usuario.Nome or pesquisa == str(usuario.Codigo):
             return usuario
     return None
 

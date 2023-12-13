@@ -42,3 +42,33 @@ def cadastrar_usuario(nome, senha):
         serializar_lista_de_usuarios(lista_de_usuarios)
     else:
         print("Nome de usuário já existe ou possui espaços")
+
+
+def buscar_usuario(pesquisa):
+    lista_de_usuarios = listar_usuarios_cadastrados()
+    for usuario in lista_de_usuarios:
+        if pesquisa == usuario.Nome or pesquisa == str(usuario.Codigo):
+            return usuario
+    return None
+
+
+def excluir_usuario(codigo):
+    try:
+        codigo = int(codigo)
+        lista_de_usuarios = listar_usuarios_cadastrados()
+        for usuario in lista_de_usuarios:
+            if codigo == usuario.Codigo:
+                lista_de_usuarios.remove(usuario)
+                serializar_lista_de_usuarios(lista_de_usuarios)
+                return True
+    except ValueError:
+        print("Valor do código inválido")
+    return False
+
+
+def validar_usuario(nome, senha):
+    lista_de_usuarios = listar_usuarios_cadastrados()
+    for usuario in lista_de_usuarios:
+        if nome == usuario.Nome and senha == usuario.Senha:
+            return True
+    return False

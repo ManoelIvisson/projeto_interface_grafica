@@ -47,7 +47,7 @@ def cadastrar_usuario(nome, senha):
 def buscar_usuario(pesquisa):
     lista_de_usuarios = listar_usuarios_cadastrados()
     for usuario in lista_de_usuarios:
-        if pesquisa == usuario.Nome or pesquisa == str(usuario.Codigo):
+        if pesquisa == str(usuario.Codigo):
             return usuario
     return None
 

@@ -57,7 +57,7 @@ def excluir_usuario():
 
 
 app = App(title="Usuário lunático", layout="grid", width=1100, height=619)
-#picture = Picture(app, image="source/fundo login.png", grid=[0,0,4,4])
+picture = Picture(app, image="source/fundo login.png", grid=[0,0,4,4])
 
 Login = Box (app, grid=[0,0], layout="")
 

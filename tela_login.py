@@ -1,4 +1,4 @@
-from guizero import App, Text, TextBox, PushButton, Window, Picture, Box, info, warn
+from guizero import App, Text, TextBox, PushButton, Window, Picture, Box, info, warn, error
 import persistencia
 
 
@@ -9,7 +9,7 @@ def validar_usuario():
         app.hide()
         janela.show()
     else:
-        warn("Atenção", "Acesso Negado, verifique o nome de usuario e a senha")
+        error("Atenção", "Acesso Negado, verifique o nome de usuario e a senha")
 
 
 def verificar_tecla(tecla_pressionada):
@@ -44,7 +44,7 @@ def buscar_usuario():
         info("Informações do usuário", f"Código: {usuario_pesquisado.Codigo} | Login: {usuario_pesquisado.Nome}"
             f" | Senha: {usuario_pesquisado.Senha}")
     else:
-        warn("Aviso", "Este usuário não existe")
+        error("Aviso", "Este usuário não existe")
 
 
 def excluir_usuario():
@@ -57,6 +57,7 @@ def excluir_usuario():
 
 
 app = App(title="Usuário lunático", layout="grid", width=1100, height=619)
+app.tk.resizable(False, False)
 picture = Picture(app, image="source/fundo login.png", grid=[0,0,4,4])
 
 Login = Box (app, grid=[0,0], layout="")
@@ -68,7 +69,7 @@ loginBotaoBox = Box(Login, layout="grid")
 
 Text(Login, text="Senha 🔑: ", font="Century Gothic", size=24)
 # senha = TextBox(app, grid=[1, 1], width=35)
-senha = TextBox(Login, width=30)
+senha = TextBox(Login, width=30, hide_text=True)
 Text(Login, text="")
 
 nomeUsuario.when_key_pressed = verificar_tecla
